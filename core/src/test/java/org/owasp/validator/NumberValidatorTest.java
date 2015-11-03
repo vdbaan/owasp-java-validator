@@ -66,9 +66,9 @@ public class NumberValidatorTest {
     public void testValidCreditCards() {
         System.out.println("test CC2");
         try {
-            Validators.CREDIT_CARD_VALIDATOR.validate("4929000000006"); //Visa
+            Validators.CREDIT_CARD_VALIDATOR.validate("4012888888881881"); //Visa
             Validators.CREDIT_CARD_VALIDATOR.validate("5404000000000001"); //Mastercard
-            Validators.CREDIT_CARD_VALIDATOR.validate("4462000000000003"); //Delta
+            Validators.CREDIT_CARD_VALIDATOR.validate("4462 0000 0000 0003"); //Delta
         } catch (ValidationException e) {
             fail("should not fail");
         }

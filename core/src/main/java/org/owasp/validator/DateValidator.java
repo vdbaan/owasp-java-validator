@@ -51,6 +51,7 @@ public class DateValidator extends Validator<Date> {
     private SimpleDateFormat dateParser;
 
     DateValidator() {
+        this(null, null);
     }
 
     DateValidator(String datePattern) {
@@ -68,13 +69,21 @@ public class DateValidator extends Validator<Date> {
 
     }
 
-    void validate(String date) throws ValidationException, ParseException {
-        validate(dateParser.parse(date));
+    public void validate(String date) throws ValidationException {
+        try {
+            validate(dateParser.parse(date));
+        } catch (ParseException e) {
+            throw new ValidationException(date + " is not a date");
+        }
     }
 
     @Override
     public void validate(Date value) throws ValidationException {
         if (_minDate != null && value.before(_minDate)) throw new ValidationException("Date before min range");
         if (_maxDate != null && value.after(_maxDate)) throw new ValidationException("Date after max range");
+    }
+
+    public void setDatePattern(String pattern) {
+        dateParser = new SimpleDateFormat(pattern);
     }
 }
