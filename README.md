@@ -11,3 +11,5 @@ News
 Initial push to github
 
 [1]: https://github.com/OWASP/owasp-java-encoder
+
+https://github.com/vdbaan/owasp-java-validator/commit/bfd811ee56d86d532b33e0052089d317bcff70e8
