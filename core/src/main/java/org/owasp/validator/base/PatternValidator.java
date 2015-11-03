@@ -56,7 +56,7 @@ public class PatternValidator extends Validator<String> {
     /**
      * tests the value against the pattern
      *
-     * @param value
+     * @param value the String to validate
      * @throws ValidationException if the pattern isn't matched
      */
     @Override

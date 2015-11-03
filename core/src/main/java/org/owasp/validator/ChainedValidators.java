@@ -57,8 +57,8 @@ public class ChainedValidators extends Validator {
     /**
      * calls all validators in the chain to validate the given object
      *
-     * @param value
-     * @throws ValidationException
+     * @param value the Object to validate
+     * @throws ValidationException is thrown if one of the validation rules against the object is broken
      */
     public void validate(Object value) throws ValidationException {
         _first.validate(value);

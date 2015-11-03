@@ -51,7 +51,7 @@ public class LuhnValidator extends Validator<String> {
      * This implementation performs Luhn algorithm checking
      *
      * @param ccNum number to be validated
-     * @return true if the ccNum passes the Luhn Algorithm
+     * @throws ValidationException if the ccNum does not pass the Luhn Algorithm
      */
     public void validate(String ccNum) throws ValidationException {
 

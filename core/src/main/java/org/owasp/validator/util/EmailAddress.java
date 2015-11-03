@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
  * An email address represents the textual string of an
  * RFC 2822 email address and other corresponding
  * information of interest.
- * <p/>
+ *
  * If you use this code, please keep the author information in tact and reference
  * my site at leshazlewood.com.  Thanks!
  *

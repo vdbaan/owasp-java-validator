@@ -50,7 +50,7 @@ public class NullValidator extends Validator<Object> {
     /**
      * Checks if the value is null
      *
-     * @param value
+     * @param value the object to validate
      * @throws ValidationException thrown if the value is not null
      */
     @Override

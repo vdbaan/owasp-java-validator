@@ -48,6 +48,8 @@ public class EmailValidator extends Validator<String> {
     @Override
     public void validate(String value) throws ValidationException {
         EmailAddress address = new EmailAddress(value);
-        if (!address.isValid()) throw new ValidationException(value + " is not a valid email address");
+        if (!address.isValid()) {
+            throw new ValidationException(value + " is not a valid email address");
+        }
     }
 }

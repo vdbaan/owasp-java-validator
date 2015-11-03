@@ -66,8 +66,8 @@ public class MaxValidator extends Validator<Number> {
     /**
      * does a byte compare
      *
-     * @param number
-     * @throws ValidationException
+     * @param number the byte to validate
+     * @throws ValidationException is thrown when the byte is lower than the set maximum
      */
     public void validate(Byte number) throws ValidationException {
         if (number.compareTo((Byte) _max) == 1) throw new ValidationException("value lower than max");
@@ -77,8 +77,8 @@ public class MaxValidator extends Validator<Number> {
     /**
      * does a double compare
      *
-     * @param number
-     * @throws ValidationException
+     * @param number the double to validate
+     * @throws ValidationException is thrown when the double is lower than the set maximum
      */
     public void validate(Double number) throws ValidationException {
         if (number.compareTo((Double) _max) == 1) throw new ValidationException("value lower than max");
@@ -88,8 +88,8 @@ public class MaxValidator extends Validator<Number> {
     /**
      * does a float compare
      *
-     * @param number
-     * @throws ValidationException
+     * @param number the float to validate
+     * @throws ValidationException is thrown when the float is lower than the set maximum
      */
     public void validate(Float number) throws ValidationException {
         if (number.compareTo((Float) _max) == 1) throw new ValidationException("value lower than max");
@@ -99,8 +99,8 @@ public class MaxValidator extends Validator<Number> {
     /**
      * does an integer compare
      *
-     * @param number
-     * @throws ValidationException
+     * @param number the integer to validate
+     * @throws ValidationException is thrown when the integer is lower than the set maximum
      */
     public void validate(Integer number) throws ValidationException {
         if (number.compareTo((Integer) _max) == 1) throw new ValidationException("value lower than max");
@@ -110,8 +110,8 @@ public class MaxValidator extends Validator<Number> {
     /**
      * does a long compare
      *
-     * @param number
-     * @throws ValidationException
+     * @param number the long to validate
+     * @throws ValidationException is thrown when the long is lower than the set maximum
      */
     public void validate(Long number) throws ValidationException {
         if (number.compareTo((Long) _max) == 1) throw new ValidationException("value lower than max");
@@ -121,8 +121,8 @@ public class MaxValidator extends Validator<Number> {
     /**
      * does a short compare
      *
-     * @param number
-     * @throws ValidationException
+     * @param number the short to validate
+     * @throws ValidationException is thrown when the short is lower than the set maximum
      */
     protected void validate(Short number) throws ValidationException {
         if (number.compareTo((Short) _max) == 1) throw new ValidationException("value lower than max");
@@ -132,8 +132,8 @@ public class MaxValidator extends Validator<Number> {
     /**
      * does a BigDecimal compare
      *
-     * @param number
-     * @throws ValidationException
+     * @param number the BigDecimal to validate
+     * @throws ValidationException is thrown when the BigDecimal is lower than the set maximum
      */
     protected void validate(BigDecimal number) throws ValidationException {
         if (number.compareTo((BigDecimal) _max) == 1)
@@ -145,8 +145,8 @@ public class MaxValidator extends Validator<Number> {
     /**
      * does a BigInteger compare
      *
-     * @param number
-     * @throws ValidationException
+     * @param number the BigInteger to validate
+     * @throws ValidationException is thrown when the BigInteger is lower than the set maximum
      */
     protected void validate(BigInteger number) throws ValidationException {
         if (number.compareTo((BigInteger) _max) == 1)
