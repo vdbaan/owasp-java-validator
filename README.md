@@ -12,4 +12,4 @@ Initial push to github
 
 [1]: https://github.com/OWASP/owasp-java-encoder
 
-https://travis-ci.org/vdbaan/owasp-java-validator.svg?branch=master
+[![Build Status](https://travis-ci.org/vdbaan/owasp-java-validator.svg?branch=master)](https://travis-ci.org/vdbaan/owasp-java-validator)
