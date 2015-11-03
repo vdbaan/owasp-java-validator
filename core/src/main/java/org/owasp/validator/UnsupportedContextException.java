@@ -48,7 +48,7 @@ public class UnsupportedContextException extends RuntimeException {
      * Sole constructor.
      *
      * @param msg the exception message--includes the name of the
-     * unsupported context
+     *            unsupported context
      */
     public UnsupportedContextException(String msg) {
         super(msg);

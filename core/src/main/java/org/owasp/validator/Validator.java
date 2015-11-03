@@ -41,7 +41,8 @@ package org.owasp.validator;
  * Created by steven on 17/09/15.
  */
 public abstract class Validator<T extends Object> {
-    protected Validator(){}
+    protected Validator() {
+    }
 
     public abstract void validate(T value) throws ValidationException;
 }

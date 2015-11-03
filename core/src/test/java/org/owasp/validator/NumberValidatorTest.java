@@ -56,14 +56,14 @@ public class NumberValidatorTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void testInvalidCreditCard() throws  ValidationException{
+    public void testInvalidCreditCard() throws ValidationException {
         System.out.println("test CC");
         Validators.CREDIT_CARD_VALIDATOR.validate("");
         fail("should not be here");
     }
 
     @Test
-    public void testValidCreditCards()  {
+    public void testValidCreditCards() {
         System.out.println("test CC2");
         try {
             Validators.CREDIT_CARD_VALIDATOR.validate("4929000000006"); //Visa

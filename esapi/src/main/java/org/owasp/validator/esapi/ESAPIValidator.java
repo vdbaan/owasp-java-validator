@@ -43,7 +43,6 @@ import org.owasp.esapi.Validator;
 import org.owasp.esapi.errors.IntrusionException;
 import org.owasp.esapi.errors.ValidationException;
 import org.owasp.esapi.reference.DefaultValidator;
-import org.owasp.validator.Validate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -70,7 +69,7 @@ public final class ESAPIValidator {
         private final Validator _referenceValidator = DefaultValidator.getInstance();
 
         public void addRule(ValidationRule validationRule) {
-
+            _referenceValidator.addRule(validationRule);
         }
 
         public ValidationRule getRule(String s) {
@@ -166,199 +165,199 @@ public final class ESAPIValidator {
         }
 
         public String getValidDirectoryPath(String s, String s1, File file, boolean b) throws ValidationException, IntrusionException {
-            return _referenceValidator.getValidDirectoryPath(s,s1,file,b);
+            return _referenceValidator.getValidDirectoryPath(s, s1, file, b);
         }
 
         public String getValidDirectoryPath(String s, String s1, File file, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return null;
+            return _referenceValidator.getValidDirectoryPath(s, s1, file, b, validationErrorList);
         }
 
         public boolean isValidFileName(String s, String s1, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidFileName(s, s1, b);
         }
 
         public boolean isValidFileName(String s, String s1, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidFileName(s, s1, b, validationErrorList);
         }
 
         public boolean isValidFileName(String s, String s1, List<String> list, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidFileName(s, s1, list, b);
         }
 
         public boolean isValidFileName(String s, String s1, List<String> list, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidFileName(s, s1, list, b, validationErrorList);
         }
 
         public String getValidFileName(String s, String s1, List<String> list, boolean b) throws ValidationException, IntrusionException {
-            return null;
+            return _referenceValidator.getValidFileName(s, s1, list, b);
         }
 
         public String getValidFileName(String s, String s1, List<String> list, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return null;
+            return _referenceValidator.getValidFileName(s, s1, list, b, validationErrorList);
         }
 
         public boolean isValidNumber(String s, String s1, long l, long l1, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidNumber(s, s1, l, l1, b);
         }
 
         public boolean isValidNumber(String s, String s1, long l, long l1, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidNumber(s, s1, l, l1, b, validationErrorList);
         }
 
         public Double getValidNumber(String s, String s1, long l, long l1, boolean b) throws ValidationException, IntrusionException {
-            return null;
+            return _referenceValidator.getValidNumber(s, s1, l, l1, b);
         }
 
         public Double getValidNumber(String s, String s1, long l, long l1, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return null;
+            return _referenceValidator.getValidNumber(s, s1, l, l1, b, validationErrorList);
         }
 
         public boolean isValidInteger(String s, String s1, int i, int i1, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidInteger(s, s1, i, i1, b);
         }
 
         public boolean isValidInteger(String s, String s1, int i, int i1, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidInteger(s, s1, i, i1, b, validationErrorList);
         }
 
         public Integer getValidInteger(String s, String s1, int i, int i1, boolean b) throws ValidationException, IntrusionException {
-            return null;
+            return _referenceValidator.getValidInteger(s, s1, i, i1, b);
         }
 
         public Integer getValidInteger(String s, String s1, int i, int i1, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return null;
+            return _referenceValidator.getValidInteger(s, s1, i, i1, b, validationErrorList);
         }
 
         public boolean isValidDouble(String s, String s1, double v, double v1, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidDouble(s, s1, v, v1, b);
         }
 
         public boolean isValidDouble(String s, String s1, double v, double v1, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidDouble(s, s1, v, v1, b, validationErrorList);
         }
 
         public Double getValidDouble(String s, String s1, double v, double v1, boolean b) throws ValidationException, IntrusionException {
-            return null;
+            return _referenceValidator.getValidDouble(s, s1, v, v1, b);
         }
 
         public Double getValidDouble(String s, String s1, double v, double v1, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return null;
+            return _referenceValidator.getValidDouble(s, s1, v, v1, b, validationErrorList);
         }
 
         public boolean isValidFileContent(String s, byte[] bytes, int i, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidFileContent(s, bytes, i, b);
         }
 
         public boolean isValidFileContent(String s, byte[] bytes, int i, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidFileContent(s, bytes, i, b, validationErrorList);
         }
 
         public byte[] getValidFileContent(String s, byte[] bytes, int i, boolean b) throws ValidationException, IntrusionException {
-            return new byte[0];
+            return _referenceValidator.getValidFileContent(s, bytes, i, b);
         }
 
         public byte[] getValidFileContent(String s, byte[] bytes, int i, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return new byte[0];
+            return _referenceValidator.getValidFileContent(s, bytes, i, b, validationErrorList);
         }
 
         public boolean isValidFileUpload(String s, String s1, String s2, File file, byte[] bytes, int i, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidFileUpload(s, s1, s2, file, bytes, i, b);
         }
 
         public boolean isValidFileUpload(String s, String s1, String s2, File file, byte[] bytes, int i, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidFileUpload(s, s1, s2, file, bytes, i, b, validationErrorList);
         }
 
         public void assertValidFileUpload(String s, String s1, String s2, File file, byte[] bytes, int i, List<String> list, boolean b) throws ValidationException, IntrusionException {
-
+            _referenceValidator.assertValidFileUpload(s, s1, s2, file, bytes, i, list, b);
         }
 
         public void assertValidFileUpload(String s, String s1, String s2, File file, byte[] bytes, int i, List<String> list, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-
+            _referenceValidator.assertValidFileUpload(s, s1, s2, file, bytes, i, list, b, validationErrorList);
         }
 
         public boolean isValidListItem(String s, String s1, List<String> list) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidListItem(s, s1, list);
         }
 
         public boolean isValidListItem(String s, String s1, List<String> list, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidListItem(s, s1, list, validationErrorList);
         }
 
         public String getValidListItem(String s, String s1, List<String> list) throws ValidationException, IntrusionException {
-            return null;
+            return _referenceValidator.getValidListItem(s, s1, list);
         }
 
         public String getValidListItem(String s, String s1, List<String> list, ValidationErrorList validationErrorList) throws IntrusionException {
-            return null;
+            return _referenceValidator.getValidListItem(s, s1, list, validationErrorList);
         }
 
         public boolean isValidHTTPRequestParameterSet(String s, HttpServletRequest httpServletRequest, Set<String> set, Set<String> set1) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidHTTPRequestParameterSet(s, httpServletRequest, set, set1);
         }
 
         public boolean isValidHTTPRequestParameterSet(String s, HttpServletRequest httpServletRequest, Set<String> set, Set<String> set1, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidHTTPRequestParameterSet(s, httpServletRequest, set, set1, validationErrorList);
         }
 
         public void assertValidHTTPRequestParameterSet(String s, HttpServletRequest httpServletRequest, Set<String> set, Set<String> set1) throws ValidationException, IntrusionException {
-
+            _referenceValidator.assertValidHTTPRequestParameterSet(s, httpServletRequest, set, set1);
         }
 
         public void assertValidHTTPRequestParameterSet(String s, HttpServletRequest httpServletRequest, Set<String> set, Set<String> set1, ValidationErrorList validationErrorList) throws IntrusionException {
-
+            _referenceValidator.assertValidHTTPRequestParameterSet(s, httpServletRequest, set, set1, validationErrorList);
         }
 
         public boolean isValidPrintable(String s, char[] chars, int i, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidPrintable(s, chars, i, b);
         }
 
         public boolean isValidPrintable(String s, char[] chars, int i, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidPrintable(s, chars, i, b, validationErrorList);
         }
 
         public char[] getValidPrintable(String s, char[] chars, int i, boolean b) throws ValidationException {
-            return new char[0];
+            return _referenceValidator.getValidPrintable(s, chars, i, b);
         }
 
         public char[] getValidPrintable(String s, char[] chars, int i, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return new char[0];
+            return _referenceValidator.getValidPrintable(s, chars, i, b, validationErrorList);
         }
 
         public boolean isValidPrintable(String s, String s1, int i, boolean b) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidPrintable(s, s1, i, b);
         }
 
         public boolean isValidPrintable(String s, String s1, int i, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return false;
+            return _referenceValidator.isValidPrintable(s, s1, i, b, validationErrorList);
         }
 
         public String getValidPrintable(String s, String s1, int i, boolean b) throws ValidationException {
-            return null;
+            return _referenceValidator.getValidPrintable(s, s1, i, b);
         }
 
         public String getValidPrintable(String s, String s1, int i, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return null;
+            return _referenceValidator.getValidPrintable(s, s1, i, b, validationErrorList);
         }
 
         public boolean isValidRedirectLocation(String s, String s1, boolean b) {
-            return false;
+            return _referenceValidator.isValidRedirectLocation(s, s1, b);
         }
 
         public boolean isValidRedirectLocation(String s, String s1, boolean b, ValidationErrorList validationErrorList) {
-            return false;
+            return _referenceValidator.isValidRedirectLocation(s, s1, b, validationErrorList);
         }
 
         public String getValidRedirectLocation(String s, String s1, boolean b) throws ValidationException, IntrusionException {
-            return null;
+            return _referenceValidator.getValidRedirectLocation(s, s1, b);
         }
 
         public String getValidRedirectLocation(String s, String s1, boolean b, ValidationErrorList validationErrorList) throws IntrusionException {
-            return null;
+            return _referenceValidator.getValidRedirectLocation(s, s1, b, validationErrorList);
         }
 
         public String safeReadLine(InputStream inputStream, int i) throws ValidationException {
-            return null;
+            return _referenceValidator.safeReadLine(inputStream, i);
 
         }
 

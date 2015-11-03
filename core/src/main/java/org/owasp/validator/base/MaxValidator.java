@@ -65,6 +65,7 @@ public class MaxValidator extends Validator<Number> {
 
     /**
      * does a byte compare
+     *
      * @param number
      * @throws ValidationException
      */
@@ -75,6 +76,7 @@ public class MaxValidator extends Validator<Number> {
 
     /**
      * does a double compare
+     *
      * @param number
      * @throws ValidationException
      */
@@ -85,6 +87,7 @@ public class MaxValidator extends Validator<Number> {
 
     /**
      * does a float compare
+     *
      * @param number
      * @throws ValidationException
      */
@@ -95,6 +98,7 @@ public class MaxValidator extends Validator<Number> {
 
     /**
      * does an integer compare
+     *
      * @param number
      * @throws ValidationException
      */
@@ -105,6 +109,7 @@ public class MaxValidator extends Validator<Number> {
 
     /**
      * does a long compare
+     *
      * @param number
      * @throws ValidationException
      */
@@ -115,6 +120,7 @@ public class MaxValidator extends Validator<Number> {
 
     /**
      * does a short compare
+     *
      * @param number
      * @throws ValidationException
      */
@@ -125,6 +131,7 @@ public class MaxValidator extends Validator<Number> {
 
     /**
      * does a BigDecimal compare
+     *
      * @param number
      * @throws ValidationException
      */
@@ -137,6 +144,7 @@ public class MaxValidator extends Validator<Number> {
 
     /**
      * does a BigInteger compare
+     *
      * @param number
      * @throws ValidationException
      */

@@ -47,30 +47,31 @@ import java.util.Map;
  * Created by steven on 17/09/15.
  */
 public final class Validators {
-    private Validators(){}
+    private Validators() {
+    }
 
     public static final String CREDITCARD = "creditcard";
 
     /**
      * Map from validator name to validator singleton.
      */
-    private static Map<String,Validator> VALIDATORS_MAP = new HashMap<String, Validator>(32);
+    private static Map<String, Validator> VALIDATORS_MAP = new HashMap<String, Validator>(32);
 
     /**
      * Internal method to setup and map validator singletons.
      *
-     * @param name -- name of the validator (one of the constants above)
+     * @param name      -- name of the validator (one of the constants above)
      * @param validator -- the validator singleton instance
-     * @param <T> the validator type
+     * @param <T>       the validator type
      * @return the validator argument.
      */
     private static <T extends Validator> T map(String name, T validator) {
-        Validator old = VALIDATORS_MAP.put(name,validator);
-        assert  old == null;
+        Validator old = VALIDATORS_MAP.put(name, validator);
+        assert old == null;
         return validator;
     }
 
-    static final ChainedValidators CREDIT_CARD_VALIDATOR = map (CREDITCARD,
+    static final ChainedValidators CREDIT_CARD_VALIDATOR = map(CREDITCARD,
             new ChainedValidators(new PatternValidator("\\d{11,16}"), new LuhnValidator()));
 
 
@@ -80,13 +81,12 @@ public final class Validators {
      *
      * @param contextName the context name (one of the String constants defined in this class)
      * @return an validator for the specified context.
-     * @throws NullPointerException if {@code contextName} is null
+     * @throws NullPointerException        if {@code contextName} is null
      * @throws UnsupportedContextException if {@code contextName} is not
-     * recognized.
+     *                                     recognized.
      */
-    public static Validator forName(String contextName)throws NullPointerException,
-            UnsupportedContextException
-    {
+    public static Validator forName(String contextName) throws NullPointerException,
+            UnsupportedContextException {
         if (contextName == null) {
             throw new NullPointerException();
         }

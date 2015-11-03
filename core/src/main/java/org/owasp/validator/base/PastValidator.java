@@ -47,7 +47,7 @@ import java.util.Date;
 /**
  * @author steven
  */
-public class PastValidator  extends Validator<Object> {
+public class PastValidator extends Validator<Object> {
     @Override
     public void validate(Object value) throws ValidationException {
         throw new ValidationException(value + " is not a date");

@@ -46,45 +46,45 @@ import org.owasp.validator.Validator;
 public class LuhnValidator extends Validator<String> {
 
 
-        /**
-         * Performs additional validation on the card nummber.
-         * This implementation performs Luhn algorithm checking
-         *
-         * @param ccNum number to be validated
-         * @return true if the ccNum passes the Luhn Algorithm
-         */
-        public void validate(String ccNum) throws ValidationException {
+    /**
+     * Performs additional validation on the card nummber.
+     * This implementation performs Luhn algorithm checking
+     *
+     * @param ccNum number to be validated
+     * @return true if the ccNum passes the Luhn Algorithm
+     */
+    public void validate(String ccNum) throws ValidationException {
 
-                StringBuilder digitsOnly = new StringBuilder();
-                char c;
-                for (int i = 0; i < ccNum.length(); i++) {
-                        c = ccNum.charAt(i);
-                        if (Character.isDigit(c)) {
-                                digitsOnly.append(c);
-                        }
-                }
-
-                int sum = 0;
-                int digit = 0;
-                int addend = 0;
-                boolean timesTwo = false;
-
-                for (int i = digitsOnly.length() - 1; i >= 0; i--) {
-                        // guaranteed to be an int
-                        digit = Integer.valueOf(digitsOnly.substring(i, i + 1));
-                        if (timesTwo) {
-                                addend = digit * 2;
-                                if (addend > 9) {
-                                        addend -= 9;
-                                }
-                        } else {
-                                addend = digit;
-                        }
-                        sum += addend;
-                        timesTwo = !timesTwo;
-                }
-
-                if (sum % 10 != 0) throw new ValidationException("Creditcard doesn't adhere to luhn algorithm");
-
+        StringBuilder digitsOnly = new StringBuilder();
+        char c;
+        for (int i = 0; i < ccNum.length(); i++) {
+            c = ccNum.charAt(i);
+            if (Character.isDigit(c)) {
+                digitsOnly.append(c);
+            }
         }
+
+        int sum = 0;
+        int digit = 0;
+        int addend = 0;
+        boolean timesTwo = false;
+
+        for (int i = digitsOnly.length() - 1; i >= 0; i--) {
+            // guaranteed to be an int
+            digit = Integer.valueOf(digitsOnly.substring(i, i + 1));
+            if (timesTwo) {
+                addend = digit * 2;
+                if (addend > 9) {
+                    addend -= 9;
+                }
+            } else {
+                addend = digit;
+            }
+            sum += addend;
+            timesTwo = !timesTwo;
+        }
+
+        if (sum % 10 != 0) throw new ValidationException("Creditcard doesn't adhere to luhn algorithm");
+
+    }
 }

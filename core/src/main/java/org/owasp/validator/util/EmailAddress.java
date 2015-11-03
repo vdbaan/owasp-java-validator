@@ -29,7 +29,6 @@ package org.owasp.validator.util;/*
  */
 
 import java.io.Serializable;
-
 import java.util.regex.Pattern;
 
 

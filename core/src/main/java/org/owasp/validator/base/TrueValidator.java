@@ -46,6 +46,6 @@ import org.owasp.validator.Validator;
 public class TrueValidator extends Validator<Boolean> {
     @Override
     public void validate(Boolean value) throws ValidationException {
-        if(!value) throw new ValidationException("Value is not True");
+        if (!value) throw new ValidationException("Value is not True");
     }
 }

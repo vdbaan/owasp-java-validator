@@ -39,7 +39,6 @@ package org.owasp.validator;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Creates a chain of validators which all weill be called to validate a specific object.
@@ -50,19 +49,20 @@ public class ChainedValidators extends Validator {
     final Validator _first;
     final List<Validator> _last;
 
-    public ChainedValidators(Validator first, Validator ... last) {
-        _first=first;
-        _last= Arrays.asList(last);
+    public ChainedValidators(Validator first, Validator... last) {
+        _first = first;
+        _last = Arrays.asList(last);
     }
 
     /**
      * calls all validators in the chain to validate the given object
+     *
      * @param value
      * @throws ValidationException
      */
     public void validate(Object value) throws ValidationException {
         _first.validate(value);
-        for(Validator validator: _last)
+        for (Validator validator : _last)
             validator.validate(value);
     }
 }

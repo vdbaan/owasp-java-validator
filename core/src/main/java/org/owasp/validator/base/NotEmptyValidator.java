@@ -40,5 +40,5 @@ package org.owasp.validator.base;
 /**
  * @author steven
  */
-public class NotEmptyValidator  {
+public class NotEmptyValidator {
 }
