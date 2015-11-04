@@ -37,8 +37,26 @@
 
 package org.owasp.validator.base;
 
+import org.owasp.validator.ValidationException;
+import org.owasp.validator.Validator;
+
+import java.util.Iterator;
+
 /**
  * @author steven
  */
-public class NotEmptyValidator {
+public class NotEmptyValidator extends Validator<Object> {
+
+    @Override
+    public void validate(Object value) throws ValidationException {
+        if (value instanceof Iterator) {
+            validate((Iterator) value);
+        } else throw new ValidationException("is not a collection");
+    }
+
+    public void validate(Iterator value) throws ValidationException {
+        if (!value.hasNext())
+            throw new ValidationException("is empty");
+    }
+
 }

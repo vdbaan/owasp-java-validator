@@ -37,135 +37,182 @@
 
 package org.owasp.validator;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
+import org.owasp.validator.base.*;
 
-import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.fail;
 
 /**
- * Created by steven on 03/11/15.
+ * Created by steven on 17/09/15.
  */
 public class ValidatorTest {
 
     @Test
-    public void testGetValidCreditCard() throws ValidationException {
-        System.out.println("getValidCreditCard");
-        Validators.CREDIT_CARD_VALIDATOR.validate("4462 0000 0000 0003");
-        Validators.CREDIT_CARD_VALIDATOR.validate("4012888888881881");
+    public void testBaseFalseValidator() throws ValidationException {
+        Validator validator = new FalseValidator();
+        validator.validate(Boolean.FALSE);
+        validator.validate(false);
         try {
-            Validators.CREDIT_CARD_VALIDATOR.validate("12349876000000081");
+            validator.validate(Boolean.TRUE);
             fail("Exception should be thrown");
         } catch (ValidationException ve) {
         }
         try {
-            Validators.CREDIT_CARD_VALIDATOR.validate("4417 1234 5678 9112");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
-        }
-    }
-
-    @Test
-    public void testGetValidDate() throws Exception {
-        System.out.println("getValidDate");
-        Validators.DATE_VALIDATOR.setDatePattern("MMM DD, YYYY");
-        Validators.DATE_VALIDATOR.validate("June 23, 1967");
-        try {
-            Validators.DATE_VALIDATOR.validate("2015-12-2");
+            validator.validate(true);
             fail("Exception should be thrown");
         } catch (ValidationException ve) {
         }
     }
 
     @Test
-    public void testGetValidDirectoryPath() throws Exception {
+    public void testBaseTrueValidator() throws ValidationException {
+        Validator validator = new TrueValidator();
+        validator.validate(Boolean.TRUE);
+        validator.validate(true);
+        try {
+            validator.validate(Boolean.FALSE);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+    }
+
+    @Test
+    public void testBaseNullValidator() throws ValidationException {
+        Validator validator = new NullValidator();
+        validator.validate(null);
+        try {
+            validator.validate("");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+    }
+
+    @Test
+    public void testBaseNotNullValidator() throws ValidationException {
+        Validator validator = new NotNullValidator();
+        validator.validate("");
+        validator.validate(new Object());
+        try {
+            validator.validate(null);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+    }
+
+    @Test
+    public void testBasePastValidator() throws ValidationException {
+        Calendar pastCalendar = new GregorianCalendar(1015, 0, 1);
+        Date pastDate = pastCalendar.getTime();
+        DateTime pastDateTime = new DateTime(pastDate);
+        Calendar futureCalendar = new GregorianCalendar(3015, 0, 1);
+        Date futureDate = futureCalendar.getTime();
+        DateTime futureDateTime = new DateTime(futureDate);
+
+        Validator validator = new PastValidator();
+        validator.validate(pastCalendar);
+        validator.validate(pastDate);
+        validator.validate(pastDateTime);
+
+        try {
+            validator.validate(futureCalendar);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        try {
+            validator.validate(futureDate);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        try {
+            validator.validate(futureDateTime);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        try {
+            validator.validate(null);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+    }
+
+    @Test
+    public void testBaseFutureValidator() throws ValidationException {
+        Calendar pastCalendar = new GregorianCalendar(1015, 0, 1);
+        Date pastDate = pastCalendar.getTime();
+        DateTime pastDateTime = new DateTime(pastDate);
+        Calendar futureCalendar = new GregorianCalendar(3015, 0, 1);
+        Date futureDate = futureCalendar.getTime();
+        DateTime futureDateTime = new DateTime(futureDate);
+
+        Validator validator = new FutureValidator();
+        validator.validate(futureCalendar);
+        validator.validate(futureDate);
+        validator.validate(futureDateTime);
+
+        try {
+            validator.validate(pastCalendar);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        try {
+            validator.validate(pastDate);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        try {
+            validator.validate(pastDateTime);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        try {
+            validator.validate(null);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
 
     }
 
     @Test
-    public void testGetValidDouble() throws Exception {
+    public void testNumber() throws ValidationException {
+        NumberValidator validator = new NumberValidator();
+        short s = 1;
+        validator.validate(s);
+        validator.validate(1.1);
+        validator.validate(0x7ffffffffL);
+    }
 
+    @Test(expected = ValidationException.class)
+    public void testInvalidCreditCard() throws ValidationException {
+        System.out.println("test CC");
+        Validators.CREDIT_CARD_VALIDATOR.validate("");
+        fail("should not be here");
     }
 
     @Test
-    public void testGetValidFileName() throws Exception {
-
+    public void testValidCreditCards() {
+        System.out.println("test CC2");
+        try {
+            Validators.CREDIT_CARD_VALIDATOR.validate("4012888888881881"); //Visa
+            Validators.CREDIT_CARD_VALIDATOR.validate("5404000000000001"); //Mastercard
+            Validators.CREDIT_CARD_VALIDATOR.validate("4462 0000 0000 0003"); //Delta
+        } catch (ValidationException e) {
+            fail("should not fail");
+        }
     }
-//
-//    @Test
-//    public void testGetValidInput() {
-//
-//    }
-//
-//    @Test
-//    public void testGetValidInteger() {
-//
-//    }
-//
-//    @Test
-//    public void testGetValidNumber() {
-//
-//    }
-//
-//    @Test
-//    public void testGetValidRedirectLocation() {
-//
-//    }
-
-    @Test
-    public void testIsInvalidFilename() {
-
-    }
-
-    @Test
-    public void testIsValidDate() {
-
-    }
-
-    @Test
-    public void testIsValidDirectoryPath() throws IOException {
-
-    }
-
-    @Test
-    public void testIsValidDouble() {
-
-    }
-
-    @Test
-    public void testIsValidFileContent() {
-
-    }
-
-    @Test
-    public void testIsValidFileName() {
-
-    }
-
-    @Test
-    public void testIsValidFileUpload() throws IOException {
-
-    }
-
-    @Test
-    public void testisValidInput() {
-
-    }
-
-    @Test
-    public void testIsValidInteger() {
-
-    }
-
-    @Test
-    public void testIsValidListItem() {
-
-    }
-
-    @Test
-    public void testIsValidNumber() {
-
-    }
-
-
 }

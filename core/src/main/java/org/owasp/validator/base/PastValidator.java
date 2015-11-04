@@ -48,10 +48,6 @@ import java.util.Date;
  * @author steven
  */
 public class PastValidator extends Validator<Object> {
-    @Override
-    public void validate(Object value) throws ValidationException {
-        throw new ValidationException(value + " is not a date");
-    }
 
     public void validate(Calendar calendar) throws ValidationException {
         if (Calendar.getInstance().before(calendar))
@@ -68,5 +64,16 @@ public class PastValidator extends Validator<Object> {
         if (DateTime.now().isBefore(dateTime)) {
             throw new ValidationException(dateTime + " is in the future");
         }
+    }
+
+    @Override
+    public void validate(Object value) throws ValidationException {
+        if (value instanceof Calendar) {
+            validate((Calendar) value);
+        } else if (value instanceof Date) {
+            validate((Date) value);
+        } else if (value instanceof DateTime) {
+            validate((DateTime) value);
+        } else         throw new ValidationException(value + " is not a date");
     }
 }
