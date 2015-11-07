@@ -62,7 +62,19 @@ public class NumberValidator extends Validator<Number> {
     @Override
     public void validate(Number number) throws ValidationException {
         if (_minValue == null && _maxValue == null) return;
-        System.out.println("validating n " + number.getClass().getCanonicalName());
+        if (number instanceof Byte) {
+            validate((Byte) number);
+        } else if (number instanceof Double) {
+            validate((Double) number);
+        } else if (number instanceof Float) {
+            validate((Float) number);
+        } else if (number instanceof Integer) {
+            validate((Integer) number);
+        } else if (number instanceof Long) {
+            validate((Long) number);
+        } else if (number instanceof Short) {
+            validate((Short) number);
+        }
     }
 
     void validate(Byte number) throws ValidationException {

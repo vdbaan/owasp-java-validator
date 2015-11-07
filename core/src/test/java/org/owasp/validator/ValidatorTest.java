@@ -472,6 +472,11 @@ public class ValidatorTest {
         } catch (ValidationException ve) {
         }
         try {
+            validator.validate("");
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
             validator.validate(null);
             fail("exception should be thrown");
         } catch (ValidationException ve) {
