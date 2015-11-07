@@ -46,16 +46,18 @@ import org.owasp.validator.Validator;
 public class EANValidator extends Validator<String> {
     @Override
     public void validate(String value) throws ValidationException {
-        if (value.length() == 13) {
+        if (value == null) {
+            throw new ValidationException("Not an EAN number");
+        } else if (value.length() == 13) {
             EAN13(value);
         } else if (value.length() == 8) {
             EAN8(value);
-        }
+        } else throw new ValidationException("Not an EAN number");
     }
 
     private void EAN8(String value) throws ValidationException {
         int sum = 0;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             int val = value.charAt(i) - '0';
             if ((i & 1) == 0) {
                 val *= 3;
@@ -63,7 +65,7 @@ public class EANValidator extends Validator<String> {
             sum += val;
         }
         int mod = (sum % 10);
-        if ((10 - mod) != (value.charAt(12) - '0')) throw new ValidationException("Not EAN8 number");
+        if ((10 - mod) != (value.charAt(7) - '0')) throw new ValidationException("Not EAN8 number");
     }
 
     private void EAN13(String value) throws ValidationException {

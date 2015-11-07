@@ -54,11 +54,12 @@ public class MinValidator extends Validator<Number> {
     private Number _min;
     private boolean _inclusive = false;
 
+    public MinValidator() {}
     /**
      * @param min       the minimal value to compare against
      * @param inclusive if the test inclusive of the minimal value
      */
-    MinValidator(Number min, boolean inclusive) {
+    public MinValidator(Number min, boolean inclusive) {
         _min = min;
         _inclusive = inclusive;
     }
@@ -67,102 +68,110 @@ public class MinValidator extends Validator<Number> {
      * does a byte compare
      *
      * @param number the byte to validate
-     * @throws ValidationException is thrown when the byte is lower than the set minimum
+     * @throws ValidationException is thrown when the byte is higher than the set maximum
      */
-    protected void validate(Byte number) throws ValidationException {
-        if (number.compareTo((Byte) _min) == -1) throw new ValidationException("value lower than min");
-        if (!_inclusive && number.compareTo((Byte) _min) == 0) throw new ValidationException("value lower than min");
+    public void validate(Byte number) throws ValidationException {
+        if(_min.byteValue() > number)throw new ValidationException("value higher than max");
+        if(!_inclusive && _min.byteValue() == number)throw new ValidationException("value higher than max");
     }
 
     /**
      * does a double compare
      *
      * @param number the double to validate
-     * @throws ValidationException is thrown when the double is lower than the set minimum
+     * @throws ValidationException is thrown when the double is higher than the set maximum
      */
     public void validate(Double number) throws ValidationException {
-        if (number.compareTo((Double) _min) == -1) throw new ValidationException("value lower than min");
-        if (!_inclusive && number.compareTo((Double) _min) == 0) throw new ValidationException("value lower than min");
+        if(_min.doubleValue() > number)throw new ValidationException("value higher than max");
+        if(!_inclusive && _min.doubleValue() == number)throw new ValidationException("value higher than max");
     }
 
     /**
      * does a float compare
      *
      * @param number the float to validate
-     * @throws ValidationException is thrown when the float is lower than the set minimum
-
+     * @throws ValidationException is thrown when the float is higher than the set maximum
      */
     public void validate(Float number) throws ValidationException {
-        if (number.compareTo((Float) _min) == -1) throw new ValidationException("value lower than min");
-        if (!_inclusive && number.compareTo((Float) _min) == 0) throw new ValidationException("value lower than min");
+        if(_min.floatValue() > number)throw new ValidationException("value higher than max");
+        if(!_inclusive && _min.floatValue() == number)throw new ValidationException("value higher than max");
     }
 
     /**
      * does an integer compare
      *
      * @param number the integer to validate
-     * @throws ValidationException is thrown when the integer is lower than the set minimum
-
+     * @throws ValidationException is thrown when the integer is higher than the set maximum
      */
     public void validate(Integer number) throws ValidationException {
-        if (number.compareTo((Integer) _min) == -1) throw new ValidationException("value lower than min");
-        if (!_inclusive && number.compareTo((Integer) _min) == 0) throw new ValidationException("value lower than min");
+        if(_min.intValue() > number)throw new ValidationException("value higher than max");
+        if(!_inclusive && _min.intValue() == number)throw new ValidationException("value higher than max");
     }
 
     /**
      * does a long compare
      *
      * @param number the long to validate
-     * @throws ValidationException is thrown when the long is lower than the set minimum
-
+     * @throws ValidationException is thrown when the long is higher than the set maximum
      */
     public void validate(Long number) throws ValidationException {
-        if (number.compareTo((Long) _min) == -1) throw new ValidationException("value lower than min");
-        if (!_inclusive && number.compareTo((Long) _min) == 0) throw new ValidationException("value lower than min");
+        if(_min.longValue() > number)throw new ValidationException("value higher than max");
+        if(!_inclusive && _min.longValue() == number)throw new ValidationException("value higher than max");
     }
 
     /**
      * does a short compare
      *
      * @param number the short to validate
-     * @throws ValidationException is thrown when the short is lower than the set minimum
-
+     * @throws ValidationException is thrown when the short is higher than the set maximum
      */
     public void validate(Short number) throws ValidationException {
-        if (number.compareTo((Short) _min) == -1) throw new ValidationException("value lower than min");
-        if (!_inclusive && number.compareTo((Short) _min) == 0) throw new ValidationException("value lower than min");
+        if(_min.shortValue() > number)throw new ValidationException("value higher than max");
+        if(!_inclusive && _min.shortValue() == number)throw new ValidationException("value higher than max");
     }
 
     /**
      * does a BigDecimal compare
      *
      * @param number the BigDecimal to validate
-     * @throws ValidationException is thrown when the BigDecimal is lower than the set minimum
+     * @throws ValidationException is thrown when the BigDecimal is higher than the set minimum
 
      */
     public void validate(BigDecimal number) throws ValidationException {
         if (number.compareTo((BigDecimal) _min) == -1)
-            throw new ValidationException("value lower than min");
+            throw new ValidationException("value higher than min");
         if (!_inclusive && number.compareTo((BigDecimal) _min) == 0)
-            throw new ValidationException("value lower than min");
+            throw new ValidationException("value higher than min");
     }
 
     /**
      * does a BigInteger compare
      *
      * @param number the BigInteger to validate
-     * @throws ValidationException is thrown when the BigInteger is lower than the set minimum
+     * @throws ValidationException is thrown when the BigInteger is higher than the set minimum
 
      */
     public void validate(BigInteger number) throws ValidationException {
         if (number.compareTo((BigInteger) _min) == -1)
-            throw new ValidationException("value lower than min");
+            throw new ValidationException("value higher than min");
         if (!_inclusive && number.compareTo((BigInteger) _min) == 0)
-            throw new ValidationException("value lower than min");
+            throw new ValidationException("value higher than min");
     }
 
     @Override
-    public void validate(Number value) throws ValidationException {
-        throw new UnsupportedContextException("Can't compare, unknown type ");
+    public void validate(Number number) throws ValidationException {
+        if(number instanceof Byte) {
+            validate((Byte)number);
+        } else if(number instanceof Double) {
+            validate((Double)number);
+        } else if(number instanceof Float) {
+            validate((Float)number);
+        } else if(number instanceof Integer) {
+            validate((Integer)number);
+        } else if(number instanceof Long) {
+            validate((Long)number);
+        } else if(number instanceof Short) {
+            validate((Short)number);
+        }
     }
 }

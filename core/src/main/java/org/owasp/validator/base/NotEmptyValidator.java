@@ -49,8 +49,8 @@ public class NotEmptyValidator extends Validator<Object> {
 
     @Override
     public void validate(Object value) throws ValidationException {
-        if (value instanceof Iterator) {
-            validate((Iterator) value);
+        if (value instanceof Iterable) {
+            validate(((Iterable) value).iterator());
         } else throw new ValidationException("is not a collection");
     }
 

@@ -47,7 +47,7 @@ import java.util.Date;
 /**
  * @author steven
  */
-public class FutureValidator extends Validator<Object> {
+public class FutureValidator extends Validator {
 
     @Override
     public void validate(Object value) throws ValidationException {

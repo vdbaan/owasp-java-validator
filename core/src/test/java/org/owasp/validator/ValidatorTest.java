@@ -40,10 +40,10 @@ package org.owasp.validator;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.owasp.validator.base.*;
+import org.owasp.validator.extension.EANValidator;
+import org.owasp.validator.extension.EmailValidator;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.Assert.fail;
 
@@ -51,6 +51,28 @@ import static org.junit.Assert.fail;
  * Created by steven on 17/09/15.
  */
 public class ValidatorTest {
+
+    @Test
+    public void testValidator() {
+        try {
+            Validator validator = Validators.forName(null);
+            fail("Exception should be thrown");
+        } catch (Exception ve) {
+        }
+        try {
+            Validator validator = Validators.forName("not here");
+            fail("Exception should be thrown");
+        } catch (UnsupportedContextException e) {
+        } catch (Exception ve) {
+            fail("Wrong exception");
+        }
+        try {
+            Validator validator = Validators.forName(Validators.CREDITCARD);
+
+        } catch (Exception ve) {
+            fail("Exception should be thrown");
+        }
+    }
 
     @Test
     public void testBaseFalseValidator() throws ValidationException {
@@ -186,6 +208,274 @@ public class ValidatorTest {
         } catch (ValidationException ve) {
         }
 
+    }
+
+    @Test
+    public void testBaseNotEmptyValidator() throws ValidationException {
+        Validator validator = new NotEmptyValidator();
+        Set set = new HashSet();
+        try {
+            validator.validate(set);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        set.add(new Object());
+        validator.validate(set);
+        List list = new ArrayList();
+        try {
+            validator.validate(list);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        list.add(new Object());
+        validator.validate(list);
+    }
+
+    @Test
+    public void testMaxValidator() throws ValidationException {
+        Validator validator = new MaxValidator(10, false);
+        short s = 1;
+        int i = 1;
+        long l = 1l;
+        byte b = 1;
+        double d = 1.0;
+        float f = 1.0f;
+
+        validator.validate(s);
+        validator.validate(i);
+        validator.validate(l);
+        validator.validate(b);
+        validator.validate(d);
+        validator.validate(f);
+
+        s = 10;
+        i = 10;
+        l = 10l;
+        b = 10;
+        d = 10.0;
+        f = 10.0f;
+        try {
+            validator.validate(s);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(i);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(l);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(b);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(d);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(f);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        validator = new MaxValidator(10, true);
+        validator.validate(s);
+        validator.validate(i);
+        validator.validate(l);
+        validator.validate(b);
+        validator.validate(d);
+        validator.validate(f);
+
+        s = 100;
+        i = 100;
+        l = 100l;
+        b = 100;
+        d = 100.0;
+        f = 100.0f;
+        try {
+            validator.validate(s);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(i);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(l);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(b);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(d);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(f);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+    }
+
+    @Test
+    public void testMinValidator() throws ValidationException {
+        Validator validator = new MinValidator(1, false);
+        short s = 10;
+        int i = 10;
+        long l = 10l;
+        byte b = 10;
+        double d = 10.0;
+        float f = 10.0f;
+
+        validator.validate(s);
+        validator.validate(i);
+        validator.validate(l);
+        validator.validate(b);
+        validator.validate(d);
+        validator.validate(f);
+
+        s = 1;
+        i = 1;
+        l = 1l;
+        b = 1;
+        d = 1.0;
+        f = 1.0f;
+        try {
+            validator.validate(s);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(i);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(l);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(b);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(d);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(f);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        validator = new MinValidator(1, true);
+        validator.validate(s);
+        validator.validate(i);
+        validator.validate(l);
+        validator.validate(b);
+        validator.validate(d);
+        validator.validate(f);
+
+        s = 0;
+        i = 0;
+        l = 0l;
+        b = 0;
+        d = 0.0;
+        f = 0.0f;
+        try {
+            validator.validate(s);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(i);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(l);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(b);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(d);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(f);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+    }
+
+    @Test
+    public void testExceptionEmailValidator() throws ValidationException {
+        Validator validator = new EmailValidator();
+        String email = "here@example.com";
+        validator.validate(email);
+        email = "not.a.valid.email";
+
+        try {
+            validator.validate(email);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(null);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+    }
+
+    @Test
+    public void testExtensionEANValidator() throws ValidationException {
+        Validator validator = new EANValidator();
+        String ean13g = "4006381333931";
+        String ean8g = "73513537";
+        String ean13f = "4006381333930";
+        String ean8f = "73513536";
+
+        validator.validate(ean13g);
+        validator.validate(ean8g);
+
+        try {
+            validator.validate(ean13f);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(ean8f);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(null);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
     }
 
     @Test

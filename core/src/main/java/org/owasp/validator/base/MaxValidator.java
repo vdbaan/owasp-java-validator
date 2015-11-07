@@ -37,7 +37,6 @@
 
 package org.owasp.validator.base;
 
-import org.owasp.validator.UnsupportedContextException;
 import org.owasp.validator.ValidationException;
 import org.owasp.validator.Validator;
 
@@ -54,14 +53,34 @@ public class MaxValidator extends Validator<Number> {
     private Number _max;
     private boolean _inclusive = false;
 
+    public MaxValidator() {
+    }
+
     /**
      * @param max       the maximal value to compare against
      * @param inclusive if the test inclusive of the maximal value
      */
-    MaxValidator(Number max, boolean inclusive) {
+    public MaxValidator(Number max, boolean inclusive) {
+        super();
         _max = max;
         _inclusive = inclusive;
     }
+
+    @Override
+    public void validate(Number number) throws ValidationException {
+        if(number instanceof Byte) {
+            validate((Byte)number);
+        } else if(number instanceof Double) {
+            validate((Double)number);
+        } else if(number instanceof Float) {
+            validate((Float)number);
+        } else if(number instanceof Integer) {
+            validate((Integer)number);
+        } else if(number instanceof Long) {
+            validate((Long)number);
+        } else if(number instanceof Short) {
+            validate((Short)number);
+        }    }
 
     /**
      * does a byte compare
@@ -70,8 +89,8 @@ public class MaxValidator extends Validator<Number> {
      * @throws ValidationException is thrown when the byte is lower than the set maximum
      */
     public void validate(Byte number) throws ValidationException {
-        if (number.compareTo((Byte) _max) == 1) throw new ValidationException("value lower than max");
-        if (!_inclusive && number.compareTo((Byte) _max) == 0) throw new ValidationException("value lower than max");
+        if(_max.byteValue() < number)throw new ValidationException("value lower than max");
+        if(!_inclusive && _max.byteValue() == number)throw new ValidationException("value lower than max");
     }
 
     /**
@@ -81,8 +100,8 @@ public class MaxValidator extends Validator<Number> {
      * @throws ValidationException is thrown when the double is lower than the set maximum
      */
     public void validate(Double number) throws ValidationException {
-        if (number.compareTo((Double) _max) == 1) throw new ValidationException("value lower than max");
-        if (!_inclusive && number.compareTo((Double) _max) == 0) throw new ValidationException("value lower than max");
+        if(_max.doubleValue() < number)throw new ValidationException("value lower than max");
+        if(!_inclusive && _max.doubleValue() == number)throw new ValidationException("value lower than max");
     }
 
     /**
@@ -92,8 +111,8 @@ public class MaxValidator extends Validator<Number> {
      * @throws ValidationException is thrown when the float is lower than the set maximum
      */
     public void validate(Float number) throws ValidationException {
-        if (number.compareTo((Float) _max) == 1) throw new ValidationException("value lower than max");
-        if (!_inclusive && number.compareTo((Float) _max) == 0) throw new ValidationException("value lower than max");
+        if(_max.floatValue() < number)throw new ValidationException("value lower than max");
+        if(!_inclusive && _max.floatValue() == number)throw new ValidationException("value lower than max");
     }
 
     /**
@@ -103,8 +122,8 @@ public class MaxValidator extends Validator<Number> {
      * @throws ValidationException is thrown when the integer is lower than the set maximum
      */
     public void validate(Integer number) throws ValidationException {
-        if (number.compareTo((Integer) _max) == 1) throw new ValidationException("value lower than max");
-        if (!_inclusive && number.compareTo((Integer) _max) == 0) throw new ValidationException("value lower than max");
+        if(_max.intValue() < number)throw new ValidationException("value lower than max");
+        if(!_inclusive && _max.intValue() == number)throw new ValidationException("value lower than max");
     }
 
     /**
@@ -114,8 +133,8 @@ public class MaxValidator extends Validator<Number> {
      * @throws ValidationException is thrown when the long is lower than the set maximum
      */
     public void validate(Long number) throws ValidationException {
-        if (number.compareTo((Long) _max) == 1) throw new ValidationException("value lower than max");
-        if (!_inclusive && number.compareTo((Long) _max) == 0) throw new ValidationException("value lower than max");
+        if(_max.longValue() < number)throw new ValidationException("value lower than max");
+        if(!_inclusive && _max.longValue() == number)throw new ValidationException("value lower than max");
     }
 
     /**
@@ -124,9 +143,9 @@ public class MaxValidator extends Validator<Number> {
      * @param number the short to validate
      * @throws ValidationException is thrown when the short is lower than the set maximum
      */
-    protected void validate(Short number) throws ValidationException {
-        if (number.compareTo((Short) _max) == 1) throw new ValidationException("value lower than max");
-        if (!_inclusive && number.compareTo((Short) _max) == 0) throw new ValidationException("value lower than max");
+    public void validate(Short number) throws ValidationException {
+        if(_max.shortValue() < number)throw new ValidationException("value lower than max");
+        if(!_inclusive && _max.shortValue() == number)throw new ValidationException("value lower than max");
     }
 
     /**
@@ -155,8 +174,4 @@ public class MaxValidator extends Validator<Number> {
             throw new ValidationException("value lower than max");
     }
 
-    @Override
-    public void validate(Number value) throws ValidationException {
-        throw new UnsupportedContextException("Can't compare, unknown type ");
-    }
 }

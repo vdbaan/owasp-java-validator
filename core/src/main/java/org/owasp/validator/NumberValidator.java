@@ -49,11 +49,11 @@ public class NumberValidator extends Validator<Number> {
     private Number _maxValue = null;
     private boolean _inclusive = false;
 
-    NumberValidator() {
+    public NumberValidator() {
 
     }
 
-    NumberValidator(Number minValue, Number maxValue, boolean inclusive) {
+    public NumberValidator(Number minValue, Number maxValue, boolean inclusive) {
         _minValue = minValue;
         _maxValue = maxValue;
         _inclusive = inclusive;
@@ -61,7 +61,7 @@ public class NumberValidator extends Validator<Number> {
 
     @Override
     public void validate(Number number) throws ValidationException {
-        if (_maxValue == null && _maxValue == null) return;
+        if (_minValue == null && _maxValue == null) return;
         System.out.println("validating n " + number.getClass().getCanonicalName());
     }
 
@@ -85,6 +85,7 @@ public class NumberValidator extends Validator<Number> {
     }
 
     void validate(Double number, Number min, Number max, boolean inclusive) throws ValidationException {
+        System.out.println("validating d " + number.getClass().getCanonicalName());
         boolean throwException = false;
         if (number.compareTo(min.doubleValue()) == -1) throwException = true;
         if (number.compareTo(max.doubleValue()) == 1) throwException = true;
