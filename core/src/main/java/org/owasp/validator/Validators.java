@@ -89,7 +89,7 @@ public final class Validators {
     public static Validator forName(String contextName) throws NullPointerException,
             UnsupportedContextException {
         if (contextName == null) {
-            throw new NullPointerException();
+            throw new UnsupportedContextException("Context should not be null");
         }
 
         Validator encoder = VALIDATORS_MAP.get(contextName);

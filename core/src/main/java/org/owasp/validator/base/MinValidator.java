@@ -37,7 +37,6 @@
 
 package org.owasp.validator.base;
 
-import org.owasp.validator.UnsupportedContextException;
 import org.owasp.validator.ValidationException;
 import org.owasp.validator.Validator;
 

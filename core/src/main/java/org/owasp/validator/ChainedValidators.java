@@ -46,8 +46,8 @@ import java.util.List;
  * @author steven
  */
 public class ChainedValidators extends Validator {
-    final Validator _first;
-    final List<Validator> _last;
+    private final Validator _first;
+    private final List<Validator> _last;
 
     public ChainedValidators(Validator first, Validator... last) {
         _first = first;

@@ -77,18 +77,18 @@ public class NumberValidator extends Validator<Number> {
         }
     }
 
-    void validate(Byte number) throws ValidationException {
+    public void validate(Byte number) throws ValidationException {
         validate(number,
                 (_minValue == null) ? Byte.MIN_VALUE : _minValue,
                 (_minValue == null) ? Byte.MAX_VALUE : _maxValue
         );
     }
 
-    void validate(Byte number, Number min, Number max) throws ValidationException {
+    public void validate(Byte number, Number min, Number max) throws ValidationException {
         System.out.println("validating b " + number.getClass().getCanonicalName());
     }
 
-    void validate(Double number) throws ValidationException {
+    public void validate(Double number) throws ValidationException {
         validate(number,
                 (_minValue == null) ? Double.MIN_VALUE : _minValue,
                 (_minValue == null) ? Double.MAX_VALUE : _maxValue,
@@ -96,7 +96,7 @@ public class NumberValidator extends Validator<Number> {
         );
     }
 
-    void validate(Double number, Number min, Number max, boolean inclusive) throws ValidationException {
+    public void validate(Double number, Number min, Number max, boolean inclusive) throws ValidationException {
         System.out.println("validating d " + number.getClass().getCanonicalName());
         boolean throwException = false;
         if (number.compareTo(min.doubleValue()) == -1) throwException = true;
@@ -105,7 +105,7 @@ public class NumberValidator extends Validator<Number> {
         if (throwException) throw new ValidationException("");
     }
 
-    void validate(Float number) throws ValidationException {
+    public void validate(Float number) throws ValidationException {
         validate(number,
                 (_minValue == null) ? Float.MIN_VALUE : _minValue,
                 (_minValue == null) ? Float.MAX_VALUE : _maxValue,
@@ -113,11 +113,11 @@ public class NumberValidator extends Validator<Number> {
         );
     }
 
-    void validate(Float number, Number min, Number max, boolean inclusive) throws ValidationException {
+    public void validate(Float number, Number min, Number max, boolean inclusive) throws ValidationException {
 
     }
 
-    void validate(Integer number) throws ValidationException {
+    public void validate(Integer number) throws ValidationException {
         validate(number,
                 (_minValue == null) ? Integer.MIN_VALUE : _minValue,
                 (_minValue == null) ? Integer.MAX_VALUE : _maxValue,
@@ -125,11 +125,11 @@ public class NumberValidator extends Validator<Number> {
         );
     }
 
-    void validate(Integer number, Number min, Number max, boolean inclusive) throws ValidationException {
+    public void validate(Integer number, Number min, Number max, boolean inclusive) throws ValidationException {
         System.out.println("validating i " + number.getClass().getCanonicalName());
     }
 
-    void validate(Long number) throws ValidationException {
+    public void validate(Long number) throws ValidationException {
         validate(number,
                 (_minValue == null) ? Long.MIN_VALUE : _minValue,
                 (_minValue == null) ? Long.MAX_VALUE : _maxValue,
@@ -137,11 +137,11 @@ public class NumberValidator extends Validator<Number> {
         );
     }
 
-    void validate(Long number, Number min, Number max, boolean inclusive) throws ValidationException {
+    public void validate(Long number, Number min, Number max, boolean inclusive) throws ValidationException {
         System.out.println("validating l " + number.getClass().getCanonicalName());
     }
 
-    void validate(Short number) throws ValidationException {
+    public void validate(Short number) throws ValidationException {
         validate(number,
                 (_minValue == null) ? Short.MIN_VALUE : _minValue,
                 (_minValue == null) ? Short.MAX_VALUE : _maxValue,
@@ -149,11 +149,11 @@ public class NumberValidator extends Validator<Number> {
         );
     }
 
-    void validate(Short number, Number min, Number max, boolean inclusive) throws ValidationException {
+    public void validate(Short number, Number min, Number max, boolean inclusive) throws ValidationException {
         System.out.println("validating s " + number.getClass().getCanonicalName());
     }
 
-    void validate(BigDecimal number) throws ValidationException {
+    public void validate(BigDecimal number) throws ValidationException {
 //        validate(number,
 //                (_minValue == null) ? Byte.MIN_VALUE : _minValue,
 //                (_minValue == null) ? Byte.MAX_VALUE : _maxValue
@@ -164,7 +164,7 @@ public class NumberValidator extends Validator<Number> {
 //        System.out.println("validating bd " + number.getClass().getCanonicalName());
 //    }
 
-    void validate(BigInteger number) throws ValidationException {
+    public void validate(BigInteger number) throws ValidationException {
 //        validate(number,
 //                (_minValue == null) ? Byte.MIN_VALUE : _minValue,
 //                (_minValue == null) ? Byte.MAX_VALUE : _maxValue
