@@ -79,13 +79,55 @@ public class ESAPIValidatorTest {
 
     @Test
     public void testGetValidDirectoryPath() throws Exception {
+        try {
+            Validators.FILE_VALIDATOR.validate("c:\\ridiculous");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            Validators.FILE_VALIDATOR.validate("c:\\temp\\..\\etc");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            Validators.FILE_VALIDATOR.validate("c:\\");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            Validators.FILE_VALIDATOR.validate("c:\\Windows\\temp");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            Validators.FILE_VALIDATOR.validate("c:\\Windows\\System32\\cmd.exe");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        // Unix specific paths should pass
+        Validators.FILE_VALIDATOR.validate("/");         // Root directory
+        Validators.FILE_VALIDATOR.validate("/bin");      // Always exist directory
+
+        // Unix specific paths that should not exist or work
+        try {
+            Validators.FILE_VALIDATOR.validate("/bin/sh");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            Validators.FILE_VALIDATOR.validate("/etc/ridiculous");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            Validators.FILE_VALIDATOR.validate("/tmp/../etc");
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
 
     }
 
-    @Test
-    public void testGetValidDouble() throws Exception {
-
-    }
 
     @Test
     public void testGetValidFileName() throws Exception {
@@ -128,8 +170,104 @@ public class ESAPIValidatorTest {
     }
 
     @Test
-    public void testIsValidDouble() {
+    public void testIsValidDouble() throws ValidationException {
+        Validators.NUMBER_VALIDATOR.validate(1.0);
+        Validators.NUMBER_VALIDATOR.validate("1", "0", "10", false);
 
+        try {
+            Validators.NUMBER_VALIDATOR.validate("-4", "1", "10", false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+
+        Validators.NUMBER_VALIDATOR.validate("-4", "-10", "10", false);
+//        Validators.NUMBER_VALIDATOR.validate(null, "-10", "10", true);
+        //testing null value
+//        assertTrue(ESAPIValidator.getInstance().isValidDouble("test3", null, -10, 10, true, errors));
+//        assertTrue(errors.size() == 1);
+//        assertFalse(ESAPIValidator.getInstance().isValidDouble("test4", null, -10, 10, false, errors));
+//        assertTrue(errors.size() == 2);
+        //testing empty string
+//        Validators.NUMBER_VALIDATOR.validate("", -10, 10, true);
+//        assertTrue(errors.size() == 2);
+//        Validators.NUMBER_VALIDATOR.validate("", -10, 10, false);
+//        assertTrue(errors.size() == 3);
+        //testing improper range
+        try {
+            Validators.NUMBER_VALIDATOR.validate("50.0", "10", "-10", false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+//        assertTrue(errors.size() == 4);
+        //testing non-integers
+        Validators.NUMBER_VALIDATOR.validate("4.3214", -10, 10, true);
+//        assertTrue(errors.size() == 4);
+        Validators.NUMBER_VALIDATOR.validate("-1.65", -10, 10, true);
+//        assertTrue(errors.size() == 4);
+        //other testing
+        Validators.NUMBER_VALIDATOR.validate("4", 1, 10, false);
+//        assertTrue(errors.size() == 4);
+        Validators.NUMBER_VALIDATOR.validate("400", 1, 10000, false);
+//        assertTrue(errors.size() == 4);
+        Validators.NUMBER_VALIDATOR.validate("400000000", 1, 400000000, false);
+//        assertTrue(errors.size() == 4);
+        try {
+            Validators.NUMBER_VALIDATOR.validate("4000000000000", 1, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+//        assertTrue(errors.size() == 5);
+            Validators.NUMBER_VALIDATOR.validate("alsdkf", 10, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+//        assertTrue(errors.size() == 6);
+            Validators.NUMBER_VALIDATOR.validate("--10", 10, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+//        assertTrue(errors.size() == 7);
+            Validators.NUMBER_VALIDATOR.validate("14.1414234x", 10, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+//        assertTrue(errors.size() == 8);
+            Validators.NUMBER_VALIDATOR.validate("Infinity", 10, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+//        assertTrue(errors.size() == 9);
+            Validators.NUMBER_VALIDATOR.validate("-Infinity", 10, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+//        assertTrue(errors.size() == 10);
+            Validators.NUMBER_VALIDATOR.validate("NaN", 10, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+//        assertTrue(errors.size() == 11);
+            Validators.NUMBER_VALIDATOR.validate("-NaN", 10, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+//        assertTrue(errors.size() == 12);
+            Validators.NUMBER_VALIDATOR.validate("+NaN", 10, 10000, false);
+            fail("Exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+//        assertTrue(errors.size() == 13);
+        Validators.NUMBER_VALIDATOR.validate("1e-6", -999999999, 999999999, false);
+//        assertTrue(errors.size() == 13);
+        Validators.NUMBER_VALIDATOR.validate("-1e-6", -999999999, 999999999, false);
     }
 
     @Test

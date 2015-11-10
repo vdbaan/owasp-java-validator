@@ -37,6 +37,7 @@
 
 package org.owasp.validator;
 
+import org.owasp.validator.base.FilePathValidator;
 import org.owasp.validator.base.PatternValidator;
 import org.owasp.validator.extension.LuhnValidator;
 
@@ -47,11 +48,15 @@ import java.util.Map;
  * Created by steven on 17/09/15.
  */
 public final class Validators {
+
+
     private Validators() {
     }
 
     public static final String CREDITCARD = "creditcard";
     public static final String DATE = "date";
+    public static final String NUMBER = "number";
+    public static final String FILE = "file";
 
     /**
      * Map from validator name to validator singleton.
@@ -75,7 +80,8 @@ public final class Validators {
     static final ChainedValidators CREDIT_CARD_VALIDATOR = map(CREDITCARD,
             new ChainedValidators(new PatternValidator("^(?:4\\d{3}|5[1-5]\\d{2}|6011|3[47]\\d{2})([- ]?)\\d{4}\\1\\d{4}\\1\\d{4}$"), new LuhnValidator()));
     static final DateValidator DATE_VALIDATOR = map(DATE,new DateValidator());
-
+    static final NumberValidator NUMBER_VALIDATOR = map(NUMBER,new NumberValidator());
+    static final FilePathValidator FILE_VALIDATOR = map(FILE,new FilePathValidator());
     /**
      * Returns a new instance of an Validator for the specified context.
      * The returned instance is thread-safe.
