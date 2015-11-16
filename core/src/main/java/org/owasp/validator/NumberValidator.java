@@ -165,7 +165,7 @@ public class NumberValidator extends Validator<Number> {
 
     public void validate(Short number, Number _min, Number _max, boolean inclusive) throws ValidationException {
         Short min = (_min == null) ? Short.MIN_VALUE : _min.shortValue();
-        Short max = (_min == null) ? Short.MAX_VALUE : _min.shortValue();
+        Short max = (_max == null) ? Short.MAX_VALUE : _max.shortValue();
         if (min.shortValue() > number) throw new ValidationException("value higher than max");
         if (inclusive&& min.shortValue() == number) throw new ValidationException("value higher than max");
         if (max.shortValue() < number) throw new ValidationException("value lower than max");

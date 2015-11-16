@@ -137,10 +137,14 @@ public class MinValidator extends Validator<Number> {
 
      */
     public void validate(BigDecimal number) throws ValidationException {
-        if (number.compareTo((BigDecimal) _min) == -1)
+        if (_min == null) return;
+        BigDecimal min = new BigDecimal(_min.toString());
+
+        if (number.compareTo(min) == -1)
             throw new ValidationException("value higher than min");
-        if (!_inclusive && number.compareTo((BigDecimal) _min) == 0)
+        if (!_inclusive && number.compareTo(min) == 0)
             throw new ValidationException("value higher than min");
+
     }
 
     /**
@@ -151,10 +155,14 @@ public class MinValidator extends Validator<Number> {
 
      */
     public void validate(BigInteger number) throws ValidationException {
-        if (number.compareTo((BigInteger) _min) == -1)
+        if (_min == null) return;
+        BigInteger min = new BigInteger(_min.toString());
+
+        if (number.compareTo(min) == -1)
             throw new ValidationException("value higher than min");
-        if (!_inclusive && number.compareTo((BigInteger) _min) == 0)
+        if (!_inclusive && number.compareTo(min) == 0)
             throw new ValidationException("value higher than min");
+
     }
 
     @Override
@@ -171,6 +179,10 @@ public class MinValidator extends Validator<Number> {
             validate((Long)number);
         } else if(number instanceof Short) {
             validate((Short)number);
+        } else if (number instanceof BigDecimal) {
+            validate((BigDecimal) number);
+        } else if (number instanceof BigInteger) {
+            validate((BigInteger) number);
         }
     }
 }

@@ -37,8 +37,31 @@
 
 package org.owasp.validator.base;
 
+import org.owasp.validator.ValidationException;
+import org.owasp.validator.Validator;
+
+import java.util.Collection;
+
 /**
  * @author steven
  */
-public class SizeValidator {
+public class SizeValidator extends Validator<Collection> {
+    private Number _min, _max;
+
+    public void setMin(int min) {
+        _min = min;
+    }
+
+    public void setMax(int max) {
+        _max = max;
+    }
+
+    @Override
+    public void validate(Collection value) throws ValidationException {
+        if (value != null) {
+            int size = value.size();
+            if (_min != null && size < _min.intValue()) throw new ValidationException("Size is lower van minimum");
+            if (_max != null && size > _max.intValue()) throw new ValidationException("Size is higher van maximum");
+        }
+    }
 }

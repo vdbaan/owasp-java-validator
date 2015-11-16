@@ -43,6 +43,8 @@ import org.owasp.validator.base.*;
 import org.owasp.validator.extension.EANValidator;
 import org.owasp.validator.extension.EmailValidator;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 import static org.junit.Assert.fail;
@@ -232,7 +234,7 @@ public class ValidatorTest {
     }
 
     @Test
-    public void testMaxValidator() throws ValidationException {
+    public void testBaseMaxValidator() throws ValidationException {
         Validator validator = new MaxValidator(10, false);
         short s = 1;
         int i = 1;
@@ -240,6 +242,8 @@ public class ValidatorTest {
         byte b = 1;
         double d = 1.0;
         float f = 1.0f;
+        BigDecimal bd = new BigDecimal(1);
+        BigInteger bi = new BigInteger("1");
 
         validator.validate(s);
         validator.validate(i);
@@ -247,6 +251,8 @@ public class ValidatorTest {
         validator.validate(b);
         validator.validate(d);
         validator.validate(f);
+        validator.validate(bd);
+        validator.validate(bi);
 
         s = 10;
         i = 10;
@@ -254,6 +260,8 @@ public class ValidatorTest {
         b = 10;
         d = 10.0;
         f = 10.0f;
+        bd = new BigDecimal(10);
+        bi = new BigInteger("10");
         try {
             validator.validate(s);
             fail("exception should be thrown");
@@ -281,6 +289,16 @@ public class ValidatorTest {
         }
         try {
             validator.validate(f);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(bd);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(bi);
             fail("exception should be thrown");
         } catch (ValidationException ve) {
         }
@@ -292,6 +310,8 @@ public class ValidatorTest {
         validator.validate(b);
         validator.validate(d);
         validator.validate(f);
+        validator.validate(bd);
+        validator.validate(bi);
 
         s = 100;
         i = 100;
@@ -299,6 +319,8 @@ public class ValidatorTest {
         b = 100;
         d = 100.0;
         f = 100.0f;
+        bd = new BigDecimal(100);
+        bi = new BigInteger("100");
         try {
             validator.validate(s);
             fail("exception should be thrown");
@@ -329,10 +351,20 @@ public class ValidatorTest {
             fail("exception should be thrown");
         } catch (ValidationException ve) {
         }
+        try {
+            validator.validate(bd);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(bi);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
     }
 
     @Test
-    public void testMinValidator() throws ValidationException {
+    public void testBaseMinValidator() throws ValidationException {
         Validator validator = new MinValidator(1, false);
         short s = 10;
         int i = 10;
@@ -340,6 +372,8 @@ public class ValidatorTest {
         byte b = 10;
         double d = 10.0;
         float f = 10.0f;
+        BigDecimal bd = new BigDecimal(10);
+        BigInteger bi = new BigInteger("10");
 
         validator.validate(s);
         validator.validate(i);
@@ -347,6 +381,8 @@ public class ValidatorTest {
         validator.validate(b);
         validator.validate(d);
         validator.validate(f);
+        validator.validate(bd);
+        validator.validate(bi);
 
         s = 1;
         i = 1;
@@ -354,6 +390,8 @@ public class ValidatorTest {
         b = 1;
         d = 1.0;
         f = 1.0f;
+        bd = new BigDecimal(1);
+        bi = new BigInteger("1");
         try {
             validator.validate(s);
             fail("exception should be thrown");
@@ -381,6 +419,16 @@ public class ValidatorTest {
         }
         try {
             validator.validate(f);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(bd);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(bi);
             fail("exception should be thrown");
         } catch (ValidationException ve) {
         }
@@ -392,6 +440,8 @@ public class ValidatorTest {
         validator.validate(b);
         validator.validate(d);
         validator.validate(f);
+        validator.validate(bd);
+        validator.validate(bi);
 
         s = 0;
         i = 0;
@@ -399,6 +449,8 @@ public class ValidatorTest {
         b = 0;
         d = 0.0;
         f = 0.0f;
+        bd = new BigDecimal(0);
+        bi = new BigInteger("0");
         try {
             validator.validate(s);
             fail("exception should be thrown");
@@ -427,6 +479,40 @@ public class ValidatorTest {
         try {
             validator.validate(f);
             fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(bd);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+        try {
+            validator.validate(bi);
+            fail("exception should be thrown");
+        } catch (ValidationException ve) {
+        }
+    }
+
+    @Test
+    public void testBaseSizeValidator() throws ValidationException {
+        SizeValidator validator = new SizeValidator();
+        List list = Collections.nCopies(10, "10");
+
+        validator.validate(null);
+        validator.validate(list);
+        validator.setMin(2);
+        validator.validate(list);
+        validator.setMin(100);
+        try {
+            validator.validate(list);
+        } catch (ValidationException ve) {
+        }
+        validator.setMin(2);
+        validator.setMax(100);
+        validator.validate(list);
+        validator.setMax(5);
+        try {
+            validator.validate(list);
         } catch (ValidationException ve) {
         }
     }
