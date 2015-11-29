@@ -49,7 +49,7 @@ import static org.junit.Assert.fail;
 public class ESAPIValidatorTest {
 
     @Test
-    public void testGetValidCreditCard() throws ValidationException {
+    public void testIsValidCreditCard() throws ValidationException {
         System.out.println("getValidCreditCard");
         Validators.CREDIT_CARD_VALIDATOR.validate("4462 0000 0000 0003");
         Validators.CREDIT_CARD_VALIDATOR.validate("4012888888881881");
@@ -66,7 +66,7 @@ public class ESAPIValidatorTest {
     }
 
     @Test
-    public void testGetValidDate() throws Exception {
+    public void testIsValidDate() throws Exception {
         System.out.println("getValidDate");
         Validators.DATE_VALIDATOR.setDatePattern("MMM DD, YYYY");
         Validators.DATE_VALIDATOR.validate("June 23, 1967");
@@ -78,61 +78,81 @@ public class ESAPIValidatorTest {
     }
 
     @Test
-    public void testGetValidDirectoryPath() throws Exception {
-        try {
-            Validators.FILE_VALIDATOR.validate("c:\\ridiculous");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
-        }
-        try {
-            Validators.FILE_VALIDATOR.validate("c:\\temp\\..\\etc");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
-        }
-        try {
+    public void testIsValidDirectoryPath() throws Exception {
+        boolean isWindows = (System.getProperty("os.name").indexOf("Windows") != -1) ? true : false;
+        if (isWindows) {
+            try {
+                Validators.FILE_VALIDATOR.validate("c:\\ridiculous");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            try {
+                Validators.FILE_VALIDATOR.validate("c:\\temp\\..\\Windows");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
             Validators.FILE_VALIDATOR.validate("c:\\");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
-        }
-        try {
             Validators.FILE_VALIDATOR.validate("c:\\Windows\\temp");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
-        }
-        try {
             Validators.FILE_VALIDATOR.validate("c:\\Windows\\System32\\cmd.exe");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
-        }
-        // Unix specific paths should pass
-        Validators.FILE_VALIDATOR.validate("/");         // Root directory
-        Validators.FILE_VALIDATOR.validate("/bin");      // Always exist directory
+            try {
+                Validators.FILE_VALIDATOR.validate("/");         // Root directory
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            try {
+                Validators.FILE_VALIDATOR.validate("/bin");      // Always exist directory
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+        } else {
+            try {
+                Validators.FILE_VALIDATOR.validate("c:\\ridiculous");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            try {
+                Validators.FILE_VALIDATOR.validate("c:\\temp\\..\\etc");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            try {
+                Validators.FILE_VALIDATOR.validate("c:\\");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            try {
+                Validators.FILE_VALIDATOR.validate("c:\\Windows\\temp");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            try {
+                Validators.FILE_VALIDATOR.validate("c:\\Windows\\System32\\cmd.exe");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            // Unix specific paths should pass
+            Validators.FILE_VALIDATOR.validate("/");         // Root directory
+            Validators.FILE_VALIDATOR.validate("/bin");      // Always exist directory
 
-        // Unix specific paths that should not exist or work
-        try {
-            Validators.FILE_VALIDATOR.validate("/bin/sh");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
+            // Unix specific paths that should not exist or work
+            try {
+                Validators.FILE_VALIDATOR.validate("/bin/sh");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            try {
+                Validators.FILE_VALIDATOR.validate("/etc/ridiculous");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
+            try {
+                Validators.FILE_VALIDATOR.validate("/tmp/../etc");
+                fail("Exception should be thrown");
+            } catch (ValidationException ve) {
+            }
         }
-        try {
-            Validators.FILE_VALIDATOR.validate("/etc/ridiculous");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
-        }
-        try {
-            Validators.FILE_VALIDATOR.validate("/tmp/../etc");
-            fail("Exception should be thrown");
-        } catch (ValidationException ve) {
-        }
-
-
     }
 
-
-    @Test
-    public void testGetValidFileName() throws Exception {
-
-    }
 //
 //    @Test
 //    public void testGetValidInput() {
@@ -154,20 +174,6 @@ public class ESAPIValidatorTest {
 //
 //    }
 
-    @Test
-    public void testIsInvalidFilename() {
-
-    }
-
-    @Test
-    public void testIsValidDate() {
-
-    }
-
-    @Test
-    public void testIsValidDirectoryPath() throws IOException {
-
-    }
 
     @Test
     public void testIsValidDouble() throws ValidationException {
@@ -291,7 +297,7 @@ public class ESAPIValidatorTest {
     }
 
     @Test
-    public void testIsValidInteger() throws ValidationException{
+    public void testIsValidInteger() throws ValidationException {
         Validators.NUMBER_VALIDATOR.validate(1);
         Validators.NUMBER_VALIDATOR.validate("1", "0", "10", false);
 
@@ -397,7 +403,7 @@ public class ESAPIValidatorTest {
     }
 
     @Test
-    public void testIsValidNumber() throws ValidationException{
+    public void testIsValidNumber() throws ValidationException {
         Validators.NUMBER_VALIDATOR.validate(1);
         Validators.NUMBER_VALIDATOR.validate("1", "0", "10", false);
 
