@@ -47,14 +47,16 @@ import java.io.IOException;
  * Created by steven on 10/11/15.
  */
 public class FilePathValidator extends Validator<String> {
-
+    boolean isWindows = (System.getProperty("os.name").indexOf("Windows") != -1) ? true : false;
 
     @Override
     public void validate(String value) throws ValidationException {
         File path = new File(value);
         try {
-
-            if (!value.equals(path.getCanonicalPath())) throw new ValidationException("Not a valid file path");
+            if (isWindows && !value.equalsIgnoreCase(path.getCanonicalPath()))
+                throw new ValidationException("Not a valid file path");
+            if (!isWindows && !value.equals(path.getCanonicalPath()))
+                throw new ValidationException("Not a valid file path");
             if (!path.exists()) throw new ValidationException("Not a valid file path");
         } catch (IOException e) {
             throw new ValidationException("Not a valid file path");
