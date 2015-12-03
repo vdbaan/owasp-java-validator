@@ -177,6 +177,7 @@ public class ESAPIValidatorTest {
 
     @Test
     public void testIsValidDouble() throws ValidationException {
+        Validators.NUMBER_VALIDATOR.setLocale("en-GB");
         Validators.NUMBER_VALIDATOR.validate(1.0);
         Validators.NUMBER_VALIDATOR.validate("1", "0", "10", false);
 

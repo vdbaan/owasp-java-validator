@@ -41,17 +41,22 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Locale;
 
 /**
  * Created by steven on 17/09/15.
  */
 public class NumberValidator extends Validator<Number> {
 
+    private Locale locale = Locale.ENGLISH;
 
     public NumberValidator() {
 
     }
 
+    public void setLocale(String languageTag) {
+        locale = Locale.forLanguageTag(languageTag);
+    }
 
     @Override
     public void validate(Number number) throws ValidationException {
@@ -93,7 +98,7 @@ public class NumberValidator extends Validator<Number> {
         try {
             Number _min = null;
             Number _max = null;
-            Number _num = NumberFormat.getInstance().parse(number);
+            Number _num = NumberFormat.getInstance(locale).parse(number);
             if (min != null) _min = NumberFormat.getInstance().parse(min);
             if (max != null) _max = NumberFormat.getInstance().parse(max);
             validate(_num, _min, _max, inclusive);
@@ -106,7 +111,8 @@ public class NumberValidator extends Validator<Number> {
         if(!number.matches("^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$"))
             throw new ValidationException("String is not a number");
         try {
-            Number _num = NumberFormat.getInstance().parse(number);
+
+            Number _num = NumberFormat.getInstance(locale).parse(number);
             validate(_num, min, max, inclusive);
         } catch (ParseException e) {
             throw new ValidationException("String is not a number");
