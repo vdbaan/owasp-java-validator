@@ -68,7 +68,8 @@ public class ESAPIValidatorTest {
     @Test
     public void testIsValidDate() throws Exception {
         System.out.println("getValidDate");
-        Validators.DATE_VALIDATOR.setDatePattern("MMM DD, YYYY");
+        Validators.DATE_VALIDATOR.validate("01-01-1970");
+        Validators.DATE_VALIDATOR.setDatePattern("MMMM DD, YYYY");
         Validators.DATE_VALIDATOR.validate("June 23, 1967");
         try {
             Validators.DATE_VALIDATOR.validate("2015-12-2");
