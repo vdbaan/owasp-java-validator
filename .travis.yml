@@ -8,5 +8,5 @@ before_script:
   - pip install --user codecov
 
 after_success:
- - codecov
- - mvn clean test saga:coverage cobertura:cobertura coveralls:report
+  - codecov
+  - mvn clean cobertura:cobertura coveralls:report
