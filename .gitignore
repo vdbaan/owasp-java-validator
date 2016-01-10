@@ -3,3 +3,7 @@ target/
 
 # IntelliJ
 .idea/
+/core/.classpath
+/core/.project
+.classpath
+.project
